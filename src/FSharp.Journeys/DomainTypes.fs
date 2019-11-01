@@ -9,5 +9,3 @@ module DomainTypes =
     type State = State of (Position * Direction)
 
     type Command = TurnRight | TurnLeft | MoveForward
-
-    type ChangeState = (State * Command) -> State
