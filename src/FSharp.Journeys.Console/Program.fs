@@ -26,11 +26,11 @@ let testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalSta
     | Ok success -> printfn "\nTest result: %s" (if success then "PASS 🎉" else "FAIL ❌")
     | Error message -> printfn "\nError on journey => %s" message
 
-let rec testJourneys journeyNumber (inputLines: string list) =
+let rec testJourneys journeyNumber inputLines =
     match inputLines with
-    | lineInitialState::lineCommands::lineExpectedFinalState::[] ->
+    | lineInitialState::lineCommands::[lineExpectedFinalState] ->
         testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalState
-    | lineInitialState::lineCommands::lineExpectedFinalState::empty::[] when String.IsNullOrWhiteSpace(empty) ->
+    | lineInitialState::lineCommands::lineExpectedFinalState::[empty] when String.IsNullOrWhiteSpace(empty) ->
         testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalState
     | lineInitialState::lineCommands::lineExpectedFinalState::empty::nextJourneys when String.IsNullOrWhiteSpace(empty) ->
         testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalState
