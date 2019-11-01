@@ -24,7 +24,7 @@ let testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalSta
     }
     |> function
     | Ok success -> printfn "\nTest result: %s" (if success then "PASS 🎉" else "FAIL ❌")
-    | Error message -> printfn "\nError on journey => %s" message
+    | Error message -> printfn "\nParsing error ⛔️\n%s" message
 
 let rec testJourneys journeyNumber inputLines =
     match inputLines with

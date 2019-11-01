@@ -53,7 +53,8 @@ I've also added two more wrong journeys to check the output (one with parsing er
 ``` shell
 ❗️Start Journey n. 4❗️
 
-Error on journey => Failed to parse state -> Failed to parse direction d: A
+Parsing error ⛔️
+Failed to parse state -> Failed to parse direction: A
 
 
 ❗️Start Journey n. 5❗️

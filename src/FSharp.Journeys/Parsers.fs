@@ -30,8 +30,8 @@ module Parsers =
         let (successY, valueY) = System.Int32.TryParse y
         match successX, successY with
         | true, true -> Ok (Position (valueX, valueY))
-        | false, _ -> Error (sprintf "Failed to parse position x: %s" x)
-        | _, false -> Error (sprintf "Failed to parse position y: %s" y)
+        | false, _ -> Error (sprintf "Failed to parse X position: %s" x)
+        | _, false -> Error (sprintf "Failed to parse Y position: %s" y)
 
     let parseDirection d = 
         match d with
@@ -39,7 +39,7 @@ module Parsers =
         | "S" -> Ok South
         | "W" -> Ok West
         | "E" -> Ok East
-        | _ -> Error (sprintf "Failed to parse direction d: %s" d)
+        | _ -> Error (sprintf "Failed to parse direction: %s" d)
 
     let parseState x y d =
         parse {
@@ -56,7 +56,7 @@ module Parsers =
         | "L" -> Ok TurnLeft
         | "R" -> Ok TurnRight
         | "F" -> Ok MoveForward
-        | _ -> Error (sprintf "Failed to parse command c: %s" c)
+        | _ -> Error (sprintf "Failed to parse command: %s" c)
 
     let parseCommandList cs = 
         parse {
@@ -70,7 +70,7 @@ module Parsers =
         input.Split(' ')
         |> function
         | [|xStr; yStr; dStr|] -> parseState xStr yStr dStr
-        | _ -> Error "Invalid state string"
+        | _ -> Error (sprintf "Invalid state string: %s" input)
 
     let parseStringCommandList (input: string) =
         input.ToCharArray()
