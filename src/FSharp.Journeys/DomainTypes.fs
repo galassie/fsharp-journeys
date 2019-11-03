@@ -6,6 +6,6 @@ module DomainTypes =
     
     type Direction = North | East | South | West
 
-    type State = State of (Position * Direction)
+    type State = { Position: Position; Direction: Direction }
 
     type Command = TurnRight | TurnLeft | MoveForward

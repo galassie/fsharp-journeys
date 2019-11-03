@@ -6,25 +6,25 @@ open FSharp.Journeys.DomainTypes
 module Robot =
     
     let turnRight state =
-        match state with
-        | State (pos, North) -> State (pos, East)
-        | State (pos, East) -> State (pos, South)
-        | State (pos, South) -> State (pos, West)
-        | State (pos, West) -> State (pos, North)
+        match state.Direction with
+        | North -> { state with Direction = East }
+        | East -> { state with Direction = South }
+        | South -> { state with Direction = West }
+        | West -> { state with Direction = North }
 
     let turnLeft state =
-        match state with
-        | State (pos, North) -> State (pos, West)
-        | State (pos, West) -> State (pos, South)
-        | State (pos, South) -> State (pos, East)
-        | State (pos, East) -> State (pos, North)
+        match state.Direction with
+        | North -> { state with Direction = West }
+        | West -> { state with Direction = South }
+        | South -> { state with Direction = East }
+        | East -> { state with Direction = North }
 
     let moveForward state =
-        match state with
-        | State (Position (x, y), North) -> State (Position (x, y+1), North)
-        | State (Position (x, y), South) -> State (Position (x, y-1), South)
-        | State (Position (x, y), West) -> State (Position (x-1, y), West)
-        | State (Position (x, y), East) -> State (Position (x+1, y), East)               
+        match state.Position, state.Direction with
+        | Position (x, y), North -> { state with Position = Position (x, y+1) }
+        | Position (x, y), South -> { state with Position = Position (x, y-1) }
+        | Position (x, y), West -> { state with Position = Position (x-1, y) }
+        | Position (x, y), East -> { state with Position = Position (x+1, y) }               
 
     let changeState state command =
         match command with

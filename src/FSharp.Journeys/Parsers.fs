@@ -5,13 +5,13 @@ open FSharp.Journeys.DomainTypes
 module Parsers =
 
     type ParseBuilder() =
-        member this.Bind(mv, func) =
+        member __.Bind(mv, func) =
             match mv with
             | Ok v -> func v
             | Error message -> Error message
-        member this.Return(v) = Ok v
-        member this.ReturnFrom(mv) = mv
-        member this.For(seqv, func) = 
+        member __.Return(v) = Ok v
+        member __.ReturnFrom(mv) = mv
+        member __is.For(seqv, func) = 
             let rec innerFor remain func result =
                 match remain with
                 | [] -> Ok result
@@ -21,7 +21,7 @@ module Parsers =
                     | Ok value -> innerFor tail func (result @ [value])
                     | Error message -> Error message
             innerFor seqv func List.empty
-        member this.Yield(mv) = mv
+        member __.Yield(mv) = mv
 
     let parse = ParseBuilder()
 
@@ -43,9 +43,9 @@ module Parsers =
 
     let parseState x y d =
         parse {
-            let! position = parsePosition x y
-            let! direction = parseDirection d
-            return! Ok (State (position, direction))
+            let! pos = parsePosition x y
+            let! dir = parseDirection d
+            return! Ok { Position = pos; Direction = dir }
         }
         |> function
         | Ok state -> Ok state
