@@ -9,16 +9,20 @@ let testJourney journeyNumber lineInitialState lineCommands lineExpectedFinalSta
     printfn "\n\n❗️Start Journey n. %i❗️" journeyNumber
     parse {
         let! initialState = parseStringState lineInitialState
-        printfn "\nInitial robot state: %A" initialState
+        printfn "\nInitial robot state:"
+        printfn "%A"initialState
         
         let! commands = parseStringCommandList lineCommands
-        printfn "\nCommands: %A" commands
+        printfn "\nCommands:"
+        printfn "%A" commands
 
         let! expectedFinalState = parseStringState lineExpectedFinalState
-        printfn "\nExpected final robot state: %A" expectedFinalState
+        printfn "\nExpected final robot state:"
+        printfn  "%A" expectedFinalState
 
         let actualFinalState = Robot.changeStateIter initialState commands
-        printfn "\nActual final robot state: %A" actualFinalState
+        printfn "\nActual final robot state:"
+        printfn "%A" actualFinalState
 
         return (expectedFinalState = actualFinalState)
     }
