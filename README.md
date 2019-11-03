@@ -36,14 +36,17 @@ Most of those are correct:
 ``` shell
 ❗Start Journey n. 1❗
 
-Initial robot state: State (Position (1, 1), East)
+Initial robot state: { Position = Position (1, 1)
+  Direction = East }
 
 Commands: [TurnRight; MoveForward; TurnRight; MoveForward; TurnRight; MoveForward;
  TurnRight; MoveForward]
 
-Expected final robot state: State (Position (1, 1), East)
+Expected final robot state: { Position = Position (1, 1)
+  Direction = East }
 
-Actual final robot state: State (Position (1, 1), East)
+Actual final robot state: { Position = Position (1, 1)
+  Direction = East }
 
 Test result: PASS 🎉
 ```
@@ -59,14 +62,17 @@ Failed to parse state -> Failed to parse direction: A
 
 ❗️Start Journey n. 5❗️
 
-Initial robot state: State (Position (0, 3), West)
+Initial robot state: { Position = Position (0, 3)
+  Direction = West }
 
 Commands: [TurnLeft; TurnLeft; MoveForward; MoveForward; MoveForward; TurnLeft;
  MoveForward; TurnLeft; MoveForward; TurnLeft]
 
-Expected final robot state: State (Position (2, 9), East)
+Expected final robot state: { Position = Position (2, 9)
+  Direction = East }
 
-Actual final robot state: State (Position (2, 4), South)
+Actual final robot state: { Position = Position (2, 4)
+  Direction = South }
 
 Test result: FAIL ❌
 ```
