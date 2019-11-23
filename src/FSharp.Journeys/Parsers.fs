@@ -16,10 +16,10 @@ module Parsers =
                 match remain with
                 | [] -> Ok result
                 | head::tail -> 
-                    let mv = func head
-                    match mv with
-                    | Ok value -> innerFor tail func (result @ [value])
-                    | Error message -> Error message
+                    func head
+                    |> function
+                        | Ok value -> innerFor tail func (result @ [value])
+                        | Error message -> Error message
             innerFor seqv func List.empty
         member __.Yield(mv) = mv
 
@@ -48,8 +48,8 @@ module Parsers =
             return! Ok { Position = pos; Direction = dir }
         }
         |> function
-        | Ok state -> Ok state
-        | Error innerMessage -> Error (sprintf "Failed to parse state -> %s" innerMessage)
+            | Ok state -> Ok state
+            | Error innerMessage -> Error (sprintf "Failed to parse state -> %s" innerMessage)
     
     let parseCommand c =
         match c with
@@ -63,14 +63,14 @@ module Parsers =
             for c in cs -> parseCommand c
         }
         |> function
-        | Ok commands -> Ok commands
-        | Error innerMessage -> Error (sprintf "Failed to parse command list -> %s" innerMessage)
+            | Ok commands -> Ok commands
+            | Error innerMessage -> Error (sprintf "Failed to parse command list -> %s" innerMessage)
     
     let parseStringState (input: string) =
         input.Split(' ')
         |> function
-        | [|xStr; yStr; dStr|] -> parseState xStr yStr dStr
-        | _ -> Error (sprintf "Invalid state string: %s" input)
+            | [|xStr; yStr; dStr|] -> parseState xStr yStr dStr
+            | _ -> Error (sprintf "Invalid state string: %s" input)
 
     let parseStringCommandList (input: string) =
         input.ToCharArray()
